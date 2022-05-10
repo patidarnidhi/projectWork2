@@ -1,0 +1,41 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+Home
+{% endblock title %}
+
+
+{% block heading %}
+
+<div class="container my-4">
+    <span style="font-size: xx-large;">All Posts</span>
+    <hr>
+</div>
+{% endblock heading %}
+
+{% block body %}
+
+<input id="search" type="text" style="font-size:30;font-weight:bold; margin-left: 1050px;" placeholder="Search"></input>
+
+<div class="container" id="mainDiv">
+    {% for post in posts %}
+    <div class="card m-4" style="width: 60rem; background-color: teal;">
+        <div class="card-body">
+            <h5 class="card-title" style="font-size: xx-large;">{{ post.title }}</h5>
+            <p class="card-text">{{post.desc}}</p>
+            <small class='ml-auto' style='color:black;font-size:larger'> Author- {{post.author}} </small>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<script>
+    $(document).ready(function(){
+              $("#search").on("keyup",function(){
+                  var data=$(this).val().toLowerCase();
+                  $("#mainDiv div").filter(function(){
+                      $(this).toggle($(this).text().toLocaleLowerCase().indexOf(data) >-1)
+                  });
+              });
+          });
+</script>
+{% endblock body %}
